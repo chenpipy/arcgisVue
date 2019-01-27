@@ -5,38 +5,28 @@
 </template>
 
 <script>
-  import * as esriLoader from 'esri-loader'
-  import { arcgisConfig } from '@/config/map-config'
+  import loadMap from '@/map/arcgis-map'
   export default {
     name: 'basemap',
     data () {
       return {
-        map: null,
-        view: null
+        view2D: null,
       }
     },
     mounted () {
       this.createMap()
     },
     methods: {
-      arcgisConfig: arcgisConfig,
       createMap () {
-        this.arcgisConfig()
-        // 引入依赖
-        esriLoader.loadModules([
-          'esri/Map',
-          'esri/views/MapView'
-        ], {url: window.arcgis.config.baseUrl}).then(([Map, MapView]) => {
-          this.map = new Map({
-            basemap: 'streets'
-          })
-          this.view = new MapView({
-            container: 'viewDiv',
-            center: [121.27189573730267, 30.8419595372876],
-            zoom: 3,
-            map: this.map
-          })
+        loadMap.then((gridMap)=>{
+          console.log(gridMap.data)
+          gridMap.initView2D('viewDiv');
+          this.view2D=gridMap.getView2D();
 
+          let layer=gridMap.getLayer('MapImageLayer',{
+            url:'http://192.168.31.12:6080/arcgis/rest/services/ChinaMapService/chinaMapService/MapServer'
+          })
+          this.view2D.map.addLayer(layer)
 
         })
       }
@@ -45,7 +35,6 @@
 </script>
 
 <style scoped>
-  @import url('http://localhost:8080/arcgis_js_api/library/4.10/esri/css/main.css');
 
   #viewDiv {
     padding: 0;
