@@ -12,9 +12,9 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost',
         pathRewrite: {
-          '^/api' : 'arcgis_js_api/library/4.10'
+          '^/api' : '/arcgis_js_api/library/4.10'
         },
         changeOrigin: true,  //是否跨域
       }
@@ -22,11 +22,10 @@ module.exports = {
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 3000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-    open:true,
 
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and

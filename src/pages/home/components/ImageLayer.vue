@@ -52,7 +52,6 @@
 </script>
 
 <style scoped>
-  @import url('http://localhost:8080/arcgis_js_api/library/4.10/esri/css/main.css');
 
   #viewDiv {
     padding: 0;
