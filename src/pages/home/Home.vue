@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <div class="mainContainer">
     <el-container class="el-container">

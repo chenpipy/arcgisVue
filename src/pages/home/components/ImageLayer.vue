@@ -31,6 +31,7 @@
         ).then(([Map, esriConfig, MapView, MapImageLayer, Extent]) => {
           esriConfig.request.corsEnabledServers.push('http://192.168.31.12:6080')//设置地图服务器已允许跨域
           var layer = new MapImageLayer({
+            id:'001',
             url: 'http://192.168.31.12:6080/arcgis/rest/services/ChinaMapService/chinaMapService/MapServer'
           })
 
@@ -44,6 +45,7 @@
             map: this.map
           })
           this.map.add(layer)
+          console.log(this.map.findLayerById('001'))
 
         })
       }

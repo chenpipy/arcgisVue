@@ -1,7 +1,12 @@
 <template>
   <div class="eleMap" style="height: 100%;">
     <div id="viewDiv">
-      <div class="full-screen" id="full-screen"></div>
+      <div class="full-screen" id="full-screen">
+        <div class="esri-ui">
+          <div class="esri-component esri-compass esri-widget--button esri-widget esri-interactive" role="button" tabindex="0" aria-label="重置罗盘仪方向" title="重置罗盘仪方向"><span aria-hidden="true" class="esri-compass__icon esri-icon-compass" style="transform: rotateZ(0deg);"></span><span class="esri-icon-font-fallback-text">重置罗盘仪方向</span></div>
+
+        </div>
+      </div>
     </div>
 
   </div>
@@ -30,14 +35,17 @@
           })
            // this.view3D.map.add(layer);
           this.view3D.when(()=>{
-
-            let fullScreenPs={
-              element:'a',
-              view:this.view3D,
-            }
+            //添加全图的控件
             let fullscreen=gridMap.getFullscreen()
             this.view3D.ui.add(fullscreen,'top-right')
           })
+          //取消所有的widget
+          // this.view3D.ui.components=[]
+          //添加高程
+          this.view3D.map.ground='world-elevation';
+          //此处证明findLayerById无法找到ground.layers中的图层
+          // console.log(this.view3D.map.findLayerById("worldElevation"))  // undefind
+
         })
       }
     }
