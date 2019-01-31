@@ -1,11 +1,19 @@
 <template>
   <div class="eleMap" style="height: 100%;">
     <div id="viewDiv">
-      <div class="full-screen" id="full-screen">
-        <div class="esri-ui">
-          <div class="esri-component esri-compass esri-widget--button esri-widget esri-interactive" role="button" tabindex="0" aria-label="重置罗盘仪方向" title="重置罗盘仪方向"><span aria-hidden="true" class="esri-compass__icon esri-icon-compass" style="transform: rotateZ(0deg);"></span><span class="esri-icon-font-fallback-text">重置罗盘仪方向</span></div>
-
+      <div class="map-control">
+        <div class="widget">
+          <span @click="resetDir()" class="compass" title="重置罗盘方向"><i class="iconfont icon-navigation__e"></i></span>
         </div>
+
+        <div class="widget">
+          <span class="compass" title="重置罗盘方向"><i class="iconfont icon-rot"></i></span>
+        </div>
+
+        <div class="widget">
+          <span class="compass" title="重置罗盘方向"><i class="iconfont icon-ziyuan"></i></span>
+        </div>
+
       </div>
     </div>
 
@@ -20,6 +28,7 @@
       return {
         view2D: null,
         view3D:null,
+        gridMap:null,
       }
     },
     mounted () {
@@ -28,6 +37,7 @@
     methods: {
       createMap () {
         loadMap.then((gridMap)=>{
+          this.gridMap=gridMap;
           gridMap.initView3D('viewDiv');
           this.view3D=gridMap.getView3D();
           let layer=gridMap.getLayer('MapImageLayer',{
@@ -38,6 +48,11 @@
             //添加全图的控件
             let fullscreen=gridMap.getFullscreen()
             this.view3D.ui.add(fullscreen,'top-right')
+
+            this.view3D.on('drag',(e)=>{
+
+            });
+
           })
           //取消所有的widget
           // this.view3D.ui.components=[]
@@ -47,6 +62,9 @@
           // console.log(this.view3D.map.findLayerById("worldElevation"))  // undefind
 
         })
+      },
+      resetDir(){
+        this.gridMap.rotateView(this.view3D,0)
       }
     }
   }
@@ -61,12 +79,34 @@
     height: 100%;
     width: 100%;
   }
-  #viewDiv .full-screen{
+  .map-control{
     position: absolute;
-    top:50px;
+    bottom:50px;
     right:50px;
+    display: flex;
+    flex-direction:column;
+  }
+  .map-control .widget{
+    position:relative;
     width:30px;
-    height: 30px;
-    background-color: rgba(255,0,0,0.5);
+    height:30px;
+    background: aliceblue;
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+  .map-control .widget .compass{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%) rotate(-45deg);
+  }
+  .map-control .widget .compass i{
+    font-size: 20px;
+    color:cadetblue;
+    padding:5px;
+  }
+  .map-control .widget i:hover{
+    cursor: pointer;
+    color: #14abff;
   }
 </style>

@@ -51,23 +51,41 @@ let loadMap = new Promise((resolve) => {
       })
     }
 
-
-    gridMap.getView2D = () => {
+    //获取2D视图
+    function getView2D() {
       return view2D
+
     }
-    gridMap.getView3D = () => {
+    //获取3D视图
+    function getView3D() {
       return view3D
     }
+
     function getFullscreen(options){
       return  new Fullscreen(options);
     }
+    //旋转视图
+    function rotateView(view,angle){
+      if(angle){
+        if (view!=null && !isNaN(angle)) {
+          view.goTo({
+            heading:angle
+          })
+        }
+      }
+      view.goTo({
+        heading:angle
+      })
+    }
 
+    gridMap.initView2D = initView2D  //初始化2D视图
+    gridMap.initView3D = initView3D  //初始化2D视图
+    gridMap.getLayer = getLayer      //获取图层
+    gridMap.getFullscreen = getFullscreen   //全屏
+    gridMap.getView2D=getView2D
+    gridMap.getView3D=getView3D
 
-
-    gridMap.initView2D = initView2D
-    gridMap.initView3D = initView3D
-    gridMap.getLayer = getLayer
-    gridMap.getFullscreen = getFullscreen
+    gridMap.rotateView=rotateView   //旋转视图
 
     resolve(gridMap)
     //funciton end
