@@ -64,18 +64,23 @@ let loadMap = new Promise((resolve) => {
     function getFullscreen(options){
       return  new Fullscreen(options);
     }
-    //旋转视图
-    function rotateView(view,angle){
-      if(angle){
-        if (view!=null && !isNaN(angle)) {
+    //视图控制
+    function viewControl(view,type,options){
+      if(!view || !type) return null;
+      switch(type){
+        case 'pan':
+          view.inputManager.primaryDragAction = "pan";
+          break;
+        case 'rotate':
+          view.inputManager.primaryDragAction = "rotate";
+          break;
+        case 'compass':
+          // var angle=options.angle || 0
           view.goTo({
-            heading:angle
+            heading:0
           })
-        }
+          break;
       }
-      view.goTo({
-        heading:angle
-      })
     }
 
     gridMap.initView2D = initView2D  //初始化2D视图
@@ -85,7 +90,7 @@ let loadMap = new Promise((resolve) => {
     gridMap.getView2D=getView2D
     gridMap.getView3D=getView3D
 
-    gridMap.rotateView=rotateView   //旋转视图
+    gridMap.viewControl=viewControl   //旋转视图
 
     resolve(gridMap)
     //funciton end
