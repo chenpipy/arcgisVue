@@ -65,7 +65,7 @@ let loadMap = new Promise((resolve) => {
       return  new Fullscreen(options);
     }
     //视图控制
-    function viewControl(view,type,options){
+    function viewControl(view,type){
       if(!view || !type) return null;
       switch(type){
         case 'pan':
