@@ -13,7 +13,7 @@
   "dependencies": {
     "element-ui": "^2.5.1",
     "esri-loader": "^2.6.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
